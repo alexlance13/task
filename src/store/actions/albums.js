@@ -1,5 +1,5 @@
 import axios from '../../axios';
-import { FETCH_ALBUMS_START, FETCH_ALBUMS_SUCCESS } from './types';
+import { FETCH_ALBUMS_START, FETCH_ALBUMS_SUCCESS, SET_SINGLE_ALBUM_PHOTOS } from './types';
 
 function fetchAlbumsStart() {
   return {
@@ -11,6 +11,13 @@ function fetchAlbumsSuccess(albums) {
   return {
     type: FETCH_ALBUMS_SUCCESS,
     albums,
+  };
+}
+
+export function setSingleAlbumPhotos(photos) {
+  return {
+    type: SET_SINGLE_ALBUM_PHOTOS,
+    photos,
   };
 }
 

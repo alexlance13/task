@@ -8,7 +8,6 @@ function App() {
       <Switch>
         <Route exact path='/' component={Home} />
         <Route path='/album/:id' component={Album} />
-        {/* <Route path="/" component={Home} /> */}
         <Redirect to='/' />
       </Switch>
     </>

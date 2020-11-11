@@ -1,21 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Layout from '../../components/Layout';
 import { connect } from 'react-redux';
-import { fetchPhotos } from '../../store/actions/photos';
 import Card from '../../components/Card';
 import { AlbumsDiv } from './styles';
 import BigPhoto from '../../components/BigPhoto';
 
-const Albums = ({ fetchPhotos, photos, title }) => {
+const Albums = ({ title, singleAlbumPhotos }) => {
   const [isBigPhotoVisible, setIsBigPhotoVisible] = useState(false);
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
 
-  useEffect(() => {
-    fetchPhotos();
-  }, [fetchPhotos]);
-
   const onOpenHandler = (id) => {
-    const index = photos.findIndex((photo) => photo.id === id);
+    const index = singleAlbumPhotos.findIndex((photo) => photo.id === id);
     setCurrentPhotoIndex(index);
     setIsBigPhotoVisible(true);
   };
@@ -24,7 +19,7 @@ const Albums = ({ fetchPhotos, photos, title }) => {
     <Layout>
       <h1>{title}</h1>
       <AlbumsDiv>
-        {photos.map((photo) => (
+        {singleAlbumPhotos.map((photo) => (
           <Card key={photo.id} onClickHandler={onOpenHandler} title={photo.title} url={photo.url} id={photo.id} />
         ))}
         {isBigPhotoVisible && (
@@ -32,7 +27,7 @@ const Albums = ({ fetchPhotos, photos, title }) => {
             close={() => setIsBigPhotoVisible(false)}
             setCurrentPhotoIndex={setCurrentPhotoIndex}
             currentPhotoIndex={currentPhotoIndex}
-            photos={photos}
+            photos={singleAlbumPhotos}
           />
         )}
       </AlbumsDiv>
@@ -42,15 +37,9 @@ const Albums = ({ fetchPhotos, photos, title }) => {
 
 function mapStateToProps(state) {
   return {
-    photos: state.photos.photos,
+    singleAlbumPhotos: state.albums.singleAlbumPhotos,
     loading: state.albums.loading,
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    fetchPhotos: () => dispatch(fetchPhotos()),
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Albums);
+export default connect(mapStateToProps)(Albums);

@@ -14,19 +14,11 @@ const BigPhoto = ({ currentPhotoIndex, setCurrentPhotoIndex, photos, close }) =>
 
   return (
     <Wrapper onClick={onOutsideClickHandler}>
-      {currentPhotoIndex >= 0 && (
-        <ArrowDiv>
-          <BiLeftArrow onClick={() => handleArrowClick(-1)} />
-        </ArrowDiv>
-      )}
+      <ArrowDiv>{currentPhotoIndex > 0 && <BiLeftArrow onClick={() => handleArrowClick(-1)} />}</ArrowDiv>
       <ImageDiv>
         <img src={photos[currentPhotoIndex].url} alt='cover' />
       </ImageDiv>
-      {photos.length - 1 > currentPhotoIndex && (
-        <ArrowDiv>
-          <BiRightArrow onClick={() => handleArrowClick(1)} />
-        </ArrowDiv>
-      )}
+      <ArrowDiv>{photos.length - 1 > currentPhotoIndex && <BiRightArrow onClick={() => handleArrowClick(1)} />}</ArrowDiv>
     </Wrapper>
   );
 };
